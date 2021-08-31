@@ -1,9 +1,16 @@
 
 #!/bin/sh -l
 
-echo "Preamble $1"
-time=$(date)
-echo "::set-output name=time::$time"
+#!/bin/sh -l
+
+OIFS="$IFS"
+IFS=$'
+'
+
+for i in $(find . | grep -F .ipynb); do
+  jupyter nbconvert --to markdown "$i"
+  echo "$i"
+done
 
 # # default passed is true, if fails checks then passed is false
 # passed=1
